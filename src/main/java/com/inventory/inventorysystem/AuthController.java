@@ -6,14 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -22,6 +16,8 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // Register
     @PostMapping("/register")
@@ -33,6 +29,8 @@ public class AuthController {
             return ResponseEntity.badRequest().body(response);
         }
 
+        // Password encrypt karo
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         response.put("message", "Registration successful");
         return ResponseEntity.ok(response);
@@ -52,7 +50,8 @@ public class AuthController {
 
         User user = userOpt.get();
 
-        if (!user.getPassword().equals(loginRequest.getPassword())) {
+        // BCrypt se password check karo
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             response.put("message", "Incorrect password");
             return ResponseEntity.badRequest().body(response);
         }
@@ -64,12 +63,17 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    // Profile dekho
+    // Profile dekho — password hide karo
     @GetMapping("/profile/{id}")
-    public ResponseEntity<User> getProfile(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> getProfile(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        return ResponseEntity.ok(user);
+
+        response.put("id", user.getId());
+        response.put("name", user.getName());
+        response.put("email", user.getEmail());
+        return ResponseEntity.ok(response);
     }
 
     // Profile update karo
