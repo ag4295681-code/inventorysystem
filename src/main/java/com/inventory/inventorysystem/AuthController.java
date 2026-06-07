@@ -6,7 +6,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -21,7 +28,6 @@ public class AuthController {
     public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
         Map<String, String> response = new HashMap<>();
 
-        // Email already exists?
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             response.put("message", "Email already registered");
             return ResponseEntity.badRequest().body(response);
@@ -53,6 +59,34 @@ public class AuthController {
 
         response.put("message", "Login successful");
         response.put("userId", user.getId());
+        response.put("name", user.getName());
+        response.put("email", user.getEmail());
+        return ResponseEntity.ok(response);
+    }
+
+    // Profile dekho
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<User> getProfile(@PathVariable Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return ResponseEntity.ok(user);
+    }
+
+    // Profile update karo
+    @PutMapping("/profile/{id}")
+    public ResponseEntity<Map<String, Object>> updateProfile(
+            @PathVariable Long id,
+            @RequestBody User updatedUser) {
+        Map<String, Object> response = new HashMap<>();
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setName(updatedUser.getName());
+        user.setEmail(updatedUser.getEmail());
+        userRepository.save(user);
+
+        response.put("message", "Profile updated successfully");
         response.put("name", user.getName());
         response.put("email", user.getEmail());
         return ResponseEntity.ok(response);
