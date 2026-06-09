@@ -7,7 +7,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -19,7 +26,7 @@ public class AuthController {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    // Register
+    
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody User user) {
         Map<String, String> response = new HashMap<>();
@@ -29,14 +36,14 @@ public class AuthController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        // Password encrypt karo
+        
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         response.put("message", "Registration successful");
         return ResponseEntity.ok(response);
     }
 
-    // Login
+    
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody User loginRequest) {
         Map<String, Object> response = new HashMap<>();
@@ -50,7 +57,7 @@ public class AuthController {
 
         User user = userOpt.get();
 
-        // BCrypt se password check karo
+        
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             response.put("message", "Incorrect password");
             return ResponseEntity.badRequest().body(response);
@@ -63,7 +70,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    // Profile dekho — password hide karo
+    
     @GetMapping("/profile/{id}")
     public ResponseEntity<Map<String, Object>> getProfile(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
@@ -76,7 +83,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    // Profile update karo
+    
     @PutMapping("/profile/{id}")
     public ResponseEntity<Map<String, Object>> updateProfile(
             @PathVariable Long id,
