@@ -1,6 +1,12 @@
 package com.inventory.inventorysystem;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "products")
@@ -13,21 +19,17 @@ public class Product {
     private String name;
     private int quantity;
     private double price;
-
-    // Category
     private String category;
+    private String companyName;  // NEW — company ka naam
 
-    // Low stock threshold — agar quantity isse kam ho toh alert
     private int lowStockThreshold = 10;
 
-    // Legal fields
     private String licenseNumber;
     private String expiryDate;
 
     @Enumerated(EnumType.STRING)
     private LegalStatus legalStatus = LegalStatus.LICENSED;
 
-    // Enum for legal status
     public enum LegalStatus {
         LICENSED,
         RESTRICTED,
@@ -50,6 +52,9 @@ public class Product {
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
 
+    public String getCompanyName() { return companyName; }
+    public void setCompanyName(String companyName) { this.companyName = companyName; }
+
     public int getLowStockThreshold() { return lowStockThreshold; }
     public void setLowStockThreshold(int lowStockThreshold) { this.lowStockThreshold = lowStockThreshold; }
 
@@ -62,7 +67,6 @@ public class Product {
     public LegalStatus getLegalStatus() { return legalStatus; }
     public void setLegalStatus(LegalStatus legalStatus) { this.legalStatus = legalStatus; }
 
-    // Helper method — low stock check
     public boolean isLowStock() {
         return this.quantity <= this.lowStockThreshold;
     }
