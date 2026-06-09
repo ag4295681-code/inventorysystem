@@ -1,48 +1,89 @@
-# Inventory System - API Documentation
+# SIMS - Smart Inventory Management System
 
 ## Base URL
 http://localhost:8080
 
 ## Auth APIs
-| API | Method | URL | Body |
-|-----|--------|-----|------|
-| Register | POST | /api/auth/register | {"name":"", "email":"", "password":""} |
-| Login | POST | /api/auth/login | {"email":"", "password":""} |
-| Profile dekho | GET | /api/auth/profile/{id} | — |
-| Profile update | PUT | /api/auth/profile/{id} | {"name":"", "email":""} |
+| Method | URL | Body | Kaam |
+|--------|-----|------|------|
+| POST | /api/auth/register | {"name":"", "email":"", "password":""} | Register |
+| POST | /api/auth/login | {"email":"", "password":""} | Login |
+| GET | /api/auth/profile/{id} | — | Profile dekho |
+| PUT | /api/auth/profile/{id} | {"name":"", "email":""} | Profile update |
 
 ## Product APIs
-| API | Method | URL |
-|-----|--------|-----|
-| Sab products | GET | /api/products |
-| Ek product | GET | /api/products/{id} |
-| Add | POST | /api/products |
-| Update | PUT | /api/products/{id} |
-| Delete | DELETE | /api/products/{id} |
-| Search | GET | /api/products/search?q=naam |
-| Low stock | GET | /api/products/low-stock |
-| Legal filter | GET | /api/products/legal/{status} |
+| Method | URL | Kaam |
+|--------|-----|------|
+| GET | /api/products | Sab products |
+| GET | /api/products/{id} | Ek product |
+| POST | /api/products | Add product |
+| PUT | /api/products/{id} | Update product |
+| DELETE | /api/products/{id} | Delete product |
+| GET | /api/products/search?q=naam | Search |
+| GET | /api/products/low-stock | Low stock |
+| GET | /api/products/legal/{status} | Legal filter |
 
 ## Category APIs
-| API | Method | URL |
-|-----|--------|-----|
-| Sab categories | GET | /api/categories |
-| Add | POST | /api/categories |
-| Delete | DELETE | /api/categories/{id} |
+| Method | URL | Kaam |
+|--------|-----|------|
+| GET | /api/categories | Sab categories |
+| POST | /api/categories | Add category |
+| DELETE | /api/categories/{id} | Delete category |
 
-## Product JSON Format
+## Transaction APIs
+| Method | URL | Kaam |
+|--------|-----|------|
+| GET | /api/transactions | Sab transactions |
+| POST | /api/transactions | Naya transaction |
+| GET | /api/transactions/product/{id} | Product ki transactions |
+| GET | /api/transactions/type/IN | Stock IN |
+| GET | /api/transactions/type/OUT | Stock OUT |
+
+## Order APIs
+| Method | URL | Kaam |
+|--------|-----|------|
+| GET | /api/orders | Sab orders |
+| GET | /api/orders/{id} | Ek order |
+| POST | /api/orders | Naya order |
+| PUT | /api/orders/{id} | Status update |
+| DELETE | /api/orders/{id} | Delete order |
+| GET | /api/orders/status/{status} | Status filter |
+
+## Dashboard API
+| Method | URL | Kaam |
+|--------|-----|------|
+| GET | /api/dashboard/{userId} | Poora dashboard data |
+
+## Product Body Example
+```json
 {
   "name": "Paracetamol",
   "quantity": 50,
   "price": 50.0,
   "category": "Medicine",
+  "companyName": "Johnson & Johnson",
   "licenseNumber": "LIC-001",
   "expiryDate": "2026-12-31",
-  "legalStatus": "LICENSED",
-  "lowStockThreshold": 10
+  "legalStatus": "LICENSED"
 }
+```
 
-## Legal Status Values
-- LICENSED
-- RESTRICTED
-- BANNED
+## Order Body Example
+```json
+{
+  "customerName": "John Doe",
+  "productId": 1,
+  "quantity": 5
+}
+```
+
+## Transaction Body Example
+```json
+{
+  "productId": 1,
+  "type": "IN",
+  "quantity": 10,
+  "note": "New stock arrived"
+}
+```
+
