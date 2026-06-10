@@ -10,6 +10,7 @@ http://localhost:8080
 | POST | /api/auth/login | {"email":"", "password":""} | Login |
 | GET | /api/auth/profile/{id} | — | Profile dekho |
 | PUT | /api/auth/profile/{id} | {"name":"", "email":""} | Profile update |
+| PUT | /api/auth/change-password/{id} | {"oldPassword":"", "newPassword":""} | Password change |
 
 ## Product APIs
 | Method | URL | Kaam |

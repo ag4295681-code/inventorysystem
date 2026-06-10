@@ -105,4 +105,27 @@ public class AuthController {
         response.put("email", user.getEmail());
         return ResponseEntity.ok(response);
     }
+    // Password Change
+@PutMapping("/change-password/{id}")
+public ResponseEntity<Map<String, String>> changePassword(
+        @PathVariable Long id,
+        @RequestBody Map<String, String> request) {
+    Map<String, String> response = new HashMap<>();
+
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    // Purana password check
+    if (!passwordEncoder.matches(request.get("oldPassword"), user.getPassword())) {
+        response.put("message", "Old password is incorrect");
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    // Naya password save 
+    user.setPassword(passwordEncoder.encode(request.get("newPassword")));
+    userRepository.save(user);
+
+    response.put("message", "Password changed successfully");
+    return ResponseEntity.ok(response);
+}
 }
