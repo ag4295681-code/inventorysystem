@@ -85,6 +85,9 @@ public class AuthController {
 
     
     @PutMapping("/profile/{id}")
+
+
+    
     public ResponseEntity<Map<String, Object>> updateProfile(
             @PathVariable Long id,
             @RequestBody User updatedUser) {
