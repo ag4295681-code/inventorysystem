@@ -78,12 +78,12 @@ http://localhost:8080
 ```
 
 ## Transaction Body Example
-```json
+json
 {
   "productId": 1,
   "type": "IN",
   "quantity": 10,
   "note": "New stock arrived"
 }
-```
+
 
