@@ -1,7 +1,5 @@
 # SIMS - Smart Inventory Management System
 
-## Base URL
-http://localhost:8080
 
 ## Auth APIs
 | Method | URL | Body | Kaam |
