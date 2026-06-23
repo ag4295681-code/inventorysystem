@@ -1,9 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMS - Smart Inventory</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Hello SIMS!</h1>
+
+<div class="login-wrapper">
+
+    <!-- LEFT SIDE -->
+    <div class="left-panel">
+        <div class="left-content">
+
+            <div class="brand">
+                <div class="brand-icon">📦</div>
+                <div>
+                    <h1 class="brand-name">SIMS</h1>
+                    <p class="brand-sub">Smart Inventory</p>
+                </div>
+            </div>
+
+            <div class="hero-text">
+                <h2>Take control of<br>your inventory</h2>
+                <p>One platform. Complete visibility.</p>
+            </div>
+
+            <div class="features">
+                <div class="feature-item">
+                    <span class="feature-icon">🛍️</span>
+                    <div>
+                        <h4>Product Management</h4>
+                        <p>Add, edit, track all products</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⚠️</span>
+                    <div>
+                        <h4>Low Stock Alerts</h4>
+                        <p>Never run out of stock</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📋</span>
+                    <div>
+                        <h4>Legal Compliance</h4>
+                        <p>Track licensed products</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="quote">"Manage smarter, grow faster"</p>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right-panel">
+        <div class="login-box">
+
+            <h2>Welcome back</h2>
+            <p class="subtitle">Sign in to your SIMS account</p>
+
+            <form id="loginForm">
+
+                <div class="input-group">
+                    <label>USERNAME</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="input-group">
+                    <label>PASSWORD</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="login-btn">SIGN IN</button>
+                <div class="divider">or continue with</div>
+
+<div class="social-buttons">
+    <button type="button" class="social-btn">
+        <img src="https://www.google.com/favicon.ico" width="16"> Google
+    </button>
+    <button type="button" class="social-btn">
+        <img src="https://github.com/favicon.ico" width="16"> GitHub
+    </button>
+</div>
+
+<p class="register-text">
+    Don't have an account? <a href="#">Register here</a>
+</p>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="auth.js"></script>
+<script src="common.js"></script>
+<script src="theme.js"></script>
+
 </body>
 </html>

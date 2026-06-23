@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+ 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f3f4f6;
+}
+
+.container{
+    display:flex;
+}
+
+.sidebar{
+    width:250px;
+    min-height:100vh;
+    background:#1f2937;
+    color:white;
+}
+
+.sidebar h2{
+    text-align:center;
+    padding:20px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:15px;
+}
+
+.sidebar ul li a{
+    color:white;
+    text-decoration:none;
+    display:block;
+}
+
+.sidebar ul li:hover{
+    background:#374151;
+}
+
+.main{
+    flex:1;
+    padding:20px;
+}
+
+.header{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.form-container{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.form-container input,
+.form-container select{
+    flex:1;
+    min-width:200px;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:5px;
+}
+
+.form-container button{
+    padding:12px 20px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.table-container{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th{
+    background:#2563eb;
+    color:white;
+    padding:12px;
+}
+
+table td{
+    border:1px solid #ddd;
+    padding:12px;
+}
+
+#themeToggle{
+    position:fixed;
+    top:15px;
+    right:15px;
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:#2563eb;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    z-index:9999;
+}
+
+.dark-mode{
+    background:#121212;
+    color:white;
+}
+
+.dark-mode .header,
+.dark-mode .form-container,
+.dark-mode .table-container{
+    background:#1e1e1e;
+    color:white;
+}
+
+.dark-mode input,
+.dark-mode select{
+    background:#2a2a2a;
+    color:white;
+    border:1px solid #555;
+}
+
+.dark-mode table td{
+    color:white;
+    border-color:#444;
+}
+</style>
+
+<body>
+
+  
+
+<div class="container">
+
+    <div class="sidebar">
+
+        <h2>Inventory</h2>
+
+        <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+
+        <ul>
+            <ul>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="orders.html">Orders</a></li>
+    <li><a href="customers.html">Customers</a></li>
+    <li><a href="transactions.html">Transactions</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="#" onclick="logout()">Logout</a></li>
+</ul>
+        </ul>
+
+    </div>
+
+    <div class="main">
+
+        <div class="header">
+            <h1>Orders Management</h1>
+        </div>
+
+        <div class="form-container">
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Customer Name">
+
+            <input
+                type="text"
+                id="productOrdered"
+                placeholder="Product Name">
+
+            <button onclick="addOrder()">
+                Add Order
+            </button>
+
+        </div>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="orderTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="orders.js"></script>
+<script src="common.js"></script>
+<script src="theme.js"></script>
+</body>
+</html>

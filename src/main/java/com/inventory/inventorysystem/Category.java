@@ -17,7 +17,7 @@ public class Category {
     private String name;
     private String description;
 
-    
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
