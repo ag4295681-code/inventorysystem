@@ -19,6 +19,7 @@ public class Order {
     private Long id;
 
     private String customerName;
+    private Long customerId;
     private Long productId;
     private String productName;
     private String companyName;
@@ -42,6 +43,9 @@ public class Order {
 
     public String getCustomerName() { return customerName; }
     public void setCustomerName(String customerName) { this.customerName = customerName; }
+
+    public Long getCustomerId() { return customerId; }
+    public void setCustomerId(Long customerId) { this.customerId = customerId; }
 
     public Long getProductId() { return productId; }
     public void setProductId(Long productId) { this.productId = productId; }

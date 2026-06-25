@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMS - Register</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="login-wrapper">
+
+    <!-- LEFT SIDE (same as login) -->
+    <div class="left-panel">
+        <div class="left-content">
+            <div class="brand">
+                <div class="brand-icon">📦</div>
+                <div>
+                    <h1 class="brand-name">SIMS</h1>
+                    <p class="brand-sub">Smart Inventory</p>
+                </div>
+            </div>
+            <div class="hero-text">
+                <h2>Join SIMS today</h2>
+                <p>Create your account and get started.</p>
+            </div>
+            <p class="quote">"Manage smarter, grow faster"</p>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE - Register Form -->
+    <div class="right-panel">
+        <div class="login-box">
+
+            <h2>Create Account</h2>
+            <p class="subtitle">Register to your SIMS account</p>
+
+            <form id="registerForm">
+
+                <div class="input-group">
+                    <label>FULL NAME</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="input-group">
+                    <label>EMAIL</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="input-group">
+                    <label>PASSWORD</label>
+                    <input type="password" id="password" placeholder="Create a password" required>
+                </div>
+
+                <button type="submit" class="login-btn">REGISTER</button>
+
+                <p class="register-text">
+                    Already have an account? <a href="index.html">Sign in here</a>
+                </p>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+        const response = await fetch("http://localhost:8080/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Registration successful! Please login.");
+            window.location.href = "index.html";
+        } else {
+            alert(data.message);
+        }
+
+    } catch (error) {
+        alert("Server se connect nahi ho pa raha!");
+        console.error(error);
+    }
+});
+</script>
+
+</body>
+</html>

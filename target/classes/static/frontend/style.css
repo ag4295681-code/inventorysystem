@@ -738,3 +738,62 @@ table tr:last-child td { border-bottom: none; }
     font-size: 12px;
     opacity: 0.85;
 }
+/* ===== RESPONSIVE FIX ===== */
+@media (max-width: 768px) {
+    .login-wrapper {
+        flex-direction: column;
+    }
+    .left-panel {
+        width: 100%;
+        min-height: 200px;
+        padding: 30px 20px;
+    }
+    .right-panel {
+        width: 100%;
+        padding: 30px 20px;
+    }
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .bottom-grid {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        display: none;
+    }
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero-banner h2 {
+        font-size: 22px;
+    }
+}
+@media (max-width: 900px) {
+    .left-panel {
+        width: 40%;
+    }
+    .right-panel {
+        width: 60%;
+    }
+}
+
+@media (max-width: 600px) {
+    .login-wrapper {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+    .left-panel {
+        width: 100%;
+        min-height: 250px;
+    }
+    .right-panel {
+        width: 100%;
+    }
+}
