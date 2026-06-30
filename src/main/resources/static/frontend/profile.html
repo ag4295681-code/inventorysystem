@@ -1,183 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Profile</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMS - Profile</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
-
-body{
-    background:#f3f4f6;
-}
-
-.container{
-    display:flex;
-}
-
-.sidebar{
-    width:250px;
-    min-height:100vh;
-    background:#1f2937;
-    color:white;
-}
-
-.sidebar h2{
-    text-align:center;
-    padding:20px;
-}
-
-.sidebar ul{
-    list-style:none;
-}
-
-.sidebar ul li{
-    padding:15px;
-}
-
-.sidebar ul li a{
-    color:white;
-    text-decoration:none;
-    display:block;
-}
-
-.sidebar ul li:hover{
-    background:#374151;
-}
-
-.main{
-    flex:1;
-    padding:20px;
-}
-
-.header{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:20px;
-}
-
-.profile-card{
-    max-width:600px;
-    margin:auto;
-    background:white;
-    padding:30px;
-    border-radius:15px;
-    text-align:center;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-
-.profile-avatar{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    margin-bottom:20px;
-}
-
-.profile-card h2{
-    margin-bottom:10px;
-}
-
-.profile-card p{
-    margin:10px 0;
-    font-size:18px;
-}
-
-#themeToggle{
-    position:fixed;
-    top:15px;
-    right:15px;
-    width:45px;
-    height:45px;
-    border:none;
-    border-radius:50%;
-    background:#2563eb;
-    color:white;
-    font-size:20px;
-    cursor:pointer;
-    z-index:9999;
-}
-
-.dark-mode{
-    background:#121212;
-    color:white;
-}
-
-.dark-mode .header,
-.dark-mode .profile-card{
-    background:#1e1e1e;
-    color:white;
-}
-</style>
 <body>
-
-<button id="themeToggle" onclick="toggleTheme()">🌙</button>
-
-<div class="container">
-
+<div class="app-layout">
     <div class="sidebar">
-
-        <h2>Inventory</h2>
-
-        <ul>
-            <ul>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="products.html">Products</a></li>
-    <li><a href="orders.html">Orders</a></li>
-    <li><a href="customers.html">Customers</a></li>
-    <li><a href="transactions.html">Transactions</a></li>
-    <li><a href="profile.html">Profile</a></li>
-    <li><a href="#" onclick="logout()">Logout</a></li>
-</ul>
-        </ul>
-
+        <div class="sidebar-brand">
+            <div class="brand-icon">📦</div>
+            <div><h2>SIMS</h2><span>Smart Inventory</span></div>
+        </div>
+        <nav class="sidebar-nav">
+    <a href="/frontend/dashboard.html" class="nav-item">🏠 Dashboard</a>
+    <a href="/frontend/products.html" class="nav-item">🛍️ Products</a>
+    <a href="/frontend/orders.html" class="nav-item">📦 Orders</a>
+    <a href="/frontend/customers.html" class="nav-item">👥 Customers</a>
+    <a href="/frontend/transactions.html" class="nav-item">💳 Transactions</a>
+    <a href="/frontend/profile.html" class="nav-item">👤 Profile</a>
+</nav>
+<div class="sidebar-bottom">
+    <a href="#" onclick="logout()" class="nav-item logout">🚪 Logout</a>
+</div>
     </div>
 
-    <div class="main">
-
-        <div class="header">
-            <h1>User Profile</h1>
+    <div class="main-content">
+        <div class="topbar">
+            <div>
+                <h1 class="page-title">User Profile</h1>
+                <p class="page-sub">Manage your account details</p>
+            </div>
+            <button id="themeToggle" onclick="toggleTheme()">🌙</button>
         </div>
 
-        <div class="profile-card">
+        <!-- PROFILE CARD -->
+        <div style="display:grid; grid-template-columns:1fr 1.5fr; gap:20px; align-items:start;">
 
-            <img
-src="https://via.placeholder.com/120"
-class="profile-avatar"
-id="profileImage"
-alt="Profile">
+            <!-- LEFT — Avatar + Info -->
+            <div class="table-container" style="text-align:center; padding:30px;">
+                <img id="profileImage"
+                    src="https://ui-avatars.com/api/?name=User&background=2563eb&color=fff&size=120"
+                    style="width:120px; height:120px; border-radius:50%; object-fit:cover; border:4px solid #2563eb; margin-bottom:16px;">
+                <br>
+                <label style="display:inline-block; margin-bottom:16px; cursor:pointer;">
+                    <span style="padding:8px 16px; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:8px; font-size:13px; cursor:pointer;">
+                        📷 Change Photo
+                    </span>
+                    <input type="file" id="imageUpload" accept="image/*" style="display:none;">
+                </label>
+                <h2 id="profileName" style="font-size:20px; font-weight:700; color:#0f172a; margin-bottom:6px;"></h2>
+                <p id="profileEmail" style="font-size:13px; color:#64748b; margin-bottom:12px;"></p>
+                <span style="background:#dcfce7; color:#16a34a; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:600;">
+                    ✅ Active
+                </span>
+                <p style="margin-top:12px; font-size:13px; color:#64748b;">
+                    Role: <strong>Inventory Manager</strong>
+                </p>
+            </div>
 
-<br><br>
+            <!-- RIGHT — Edit Form -->
+            <div class="table-container" style="padding:30px;">
+                <h2 class="section-title" style="margin-bottom:20px;">✏️ Edit Profile</h2>
 
-<input
-type="file"
-id="imageUpload"
-accept="image/*">
+                <div style="display:flex; flex-direction:column; gap:14px;">
+                    <div>
+                        <label style="font-size:12px; font-weight:600; color:#64748b; letter-spacing:1px;">FULL NAME</label>
+                        <input type="text" id="editName" placeholder="Your full name"
+                            style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px; margin-top:6px;">
+                    </div>
+                    <div>
+                        <label style="font-size:12px; font-weight:600; color:#64748b; letter-spacing:1px;">EMAIL</label>
+                        <input type="email" id="editEmail" placeholder="Your email"
+                            style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px; margin-top:6px;">
+                    </div>
+                    <button onclick="updateProfile()"
+                        style="padding:12px; background:#2563eb; color:white; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;">
+                        💾 Save Changes
+                    </button>
+                </div>
 
-            <h2 id="profileName"></h2>
+                <hr style="margin:24px 0; border:none; border-top:1px solid #e2e8f0;">
 
-            <p id="profileRole"></p>
-
-            <p id="profileStatus"></p>
-
+                <h2 class="section-title" style="margin-bottom:20px;">🔒 Change Password</h2>
+                <div style="display:flex; flex-direction:column; gap:14px;">
+                    <div>
+                        <label style="font-size:12px; font-weight:600; color:#64748b; letter-spacing:1px;">OLD PASSWORD</label>
+                        <input type="password" id="oldPassword" placeholder="Current password"
+                            style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px; margin-top:6px;">
+                    </div>
+                    <div>
+                        <label style="font-size:12px; font-weight:600; color:#64748b; letter-spacing:1px;">NEW PASSWORD</label>
+                        <input type="password" id="newPassword" placeholder="New password"
+                            style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-size:14px; margin-top:6px;">
+                    </div>
+                    <button onclick="changePassword()"
+                        style="padding:12px; background:#059669; color:white; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;">
+                        🔑 Change Password
+                    </button>
+                </div>
+            </div>
         </div>
-
     </div>
-
 </div>
 
 <script src="profile.js"></script>
-<script src="theme.js"></script>
 <script src="common.js"></script>
-
-
+<script src="theme.js"></script>
 </body>
 </html>

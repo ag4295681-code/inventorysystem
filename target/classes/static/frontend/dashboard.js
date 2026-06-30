@@ -1,106 +1,81 @@
-if(localStorage.getItem("loggedIn") !== "true")
-{
-    window.location.href = "index.html";
+// ===== AUTH CHECK =====
+if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "/frontend/index.html";
 }
 
-const user =
-localStorage.getItem("currentUser");
+// ===== WELCOME NAME =====
+const user = localStorage.getItem("currentUser");
+if (user) {
+    document.getElementById("welcomeName").textContent = user;
+    if (document.getElementById("welcome")) {
+        document.getElementById("welcome").innerText = "Welcome, " + user;
+    }
+}
 
-document.getElementById("welcome")
-.innerText =
-"Welcome, " + user;
+// ===== DATE =====
+const now = new Date();
+if (document.getElementById("currentDate")) {
+    document.getElementById("currentDate").textContent =
+        now.toLocaleDateString('en-IN', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+}
 
-function logout()
-{
+// ===== LOGOUT =====
+function logout() {
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("currentUser");
-
-    window.location.href =
-    "index.html";
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userEmail");
+    window.location.href = "/frontend/index.html";
 }
 
-/* Products Count */
+// ===== FETCH DATA FROM BACKEND =====
+const API = "http://localhost:8080/api";
 
-const products =
-JSON.parse(
-localStorage.getItem("products")
-) || [];
+async function loadDashboard() {
+    try {
+        // Products count
+        const productsRes = await fetch(`${API}/products`);
+        const products = await productsRes.json();
+        document.getElementById("totalProducts").innerText = products.length;
+        if (document.getElementById("heroProducts"))
+            document.getElementById("heroProducts").innerText = products.length;
 
-document.getElementById(
-"totalProducts"
-).innerText =
-products.length;
+        // Orders count
+        const ordersRes = await fetch(`${API}/orders`);
+        const orders = await ordersRes.json();
+        document.getElementById("totalOrders").innerText = orders.length;
+        if (document.getElementById("heroOrders"))
+            document.getElementById("heroOrders").innerText = orders.length;
 
-/* Orders Count */
+        // Customers count
+        const customersRes = await fetch(`${API}/customers`);
+        const customers = await customersRes.json();
+        document.getElementById("totalCustomers").innerText = customers.length;
+        if (document.getElementById("heroCustomers"))
+            document.getElementById("heroCustomers").innerText = customers.length;
 
-const orders =
-JSON.parse(
-localStorage.getItem("orders")
-) || [];
+        // Revenue calculate karo
+        let revenue = 0;
+        products.forEach(p => {
+            revenue += Number(p.price || 0) * Number(p.quantity || p.qty || 0);
+        });
+        document.getElementById("totalRevenue").innerText = "₹" + revenue.toLocaleString('en-IN');
 
-document.getElementById(
-"totalOrders"
-).innerText =
-orders.length;
-
-/* Customers Count */
-
-const customers =
-JSON.parse(
-localStorage.getItem("customers")
-) || [];
-
-document.getElementById(
-"totalCustomers"
-).innerText =
-customers.length;
-let revenue = 0;
-
-products.forEach(product => {
-
-    revenue +=
-    Number(product.qty) *
-    Number(product.price);
-
-});
-
-document.getElementById(
-    "totalRevenue"
-).innerText =
-"₹" + revenue;
-
-function toggleTheme()
-{
-    document.body.classList.toggle(
-        "dark-mode"
-    );
-
-    if(
-        document.body.classList.contains(
-            "dark-mode"
-        )
-    )
-    {
-        localStorage.setItem(
-            "theme",
-            "dark"
-        );
-    }
-    else
-    {
-        localStorage.setItem(
-            "theme",
-            "light"
-        );
+    } catch (err) {
+        console.error("Dashboard load error:", err);
     }
 }
 
-if(
-    localStorage.getItem("theme")
-    === "dark"
-)
-{
-    document.body.classList.add(
-        "dark-mode"
+loadDashboard();
+
+// ===== THEME =====
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("theme",
+        document.body.classList.contains("dark-mode") ? "dark" : "light"
     );
+}
+
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
 }

@@ -3,251 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
-
+    <title>SIMS - Products</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
-
-body{
-    background:#f3f4f6;
-}
-
-.container{
-    display:flex;
-}
-
-.sidebar{
-    width:250px;
-    min-height:100vh;
-    background:#1f2937;
-    color:white;
-}
-
-.sidebar h2{
-    text-align:center;
-    padding:20px;
-}
-
-.sidebar ul{
-    list-style:none;
-}
-
-.sidebar ul li{
-    padding:15px;
-}
-
-.sidebar ul li a{
-    color:white;
-    text-decoration:none;
-    display:block;
-}
-
-.sidebar ul li:hover{
-    background:#374151;
-}
-
-.main{
-    flex:1;
-    padding:20px;
-}
-
-.header{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:20px;
-}
-
-.form-container{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:20px;
-
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-}
-
-.form-container input{
-    flex:1;
-    min-width:200px;
-    padding:12px;
-    border:1px solid #ddd;
-    border-radius:5px;
-}
-
-.form-container button{
-    padding:12px 20px;
-    background:#2563eb;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-.table-container{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-table th{
-    background:#2563eb;
-    color:white;
-    padding:12px;
-}
-
-table td{
-    border:1px solid #ddd;
-    padding:12px;
-}
-
-#themeToggle{
-    position:fixed;
-    top:15px;
-    right:15px;
-
-    width:45px;
-    height:45px;
-
-    border:none;
-    border-radius:50%;
-
-    background:#2563eb;
-    color:white;
-
-    font-size:20px;
-    cursor:pointer;
-
-    z-index:9999;
-}
-
-.dark-mode{
-    background:#121212;
-    color:white;
-}
-
-.dark-mode .header,
-.dark-mode .form-container,
-.dark-mode .table-container{
-    background:#1e1e1e;
-    color:white;
-}
-
-.dark-mode input{
-    background:#2a2a2a;
-    color:white;
-    border:1px solid #555;
-}
-
-.dark-mode table td{
-    color:white;
-    border-color:#444;
-}
-</style>
 <body>
-
-<button id="themeToggle" onclick="toggleTheme()">🌙</button>
-
-<div class="container">
-
+ 
+<div class="app-layout">
+ 
+    <!-- SIDEBAR — dashboard jaisa -->
     <div class="sidebar">
-
-        <h2>Inventory</h2>
-
-        <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="orders.html">Orders</a></li>
-            <li><a href="customers.html">Customers</a></li>
-            <li><a href="transactions.html">Transactions</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="#" onclick="logout()">Logout</a></li>
-        </ul>
-
-    </div>
-
-    <div class="main">
-
-        <div class="header">
-            <h1>Products Management</h1>
+        <div class="sidebar-brand">
+            <div class="brand-icon">📦</div>
+            <div>
+                <h2>SIMS</h2>
+                <span>Smart Inventory</span>
+            </div>
         </div>
-
-        <div class="form-container">
-
-            <input
-                type="text"
-                id="productName"
-                placeholder="Product Name">
-
-            <input
-                type="number"
-                id="productQty"
-                placeholder="Quantity">
-
-            <input
-                type="number"
-                id="productPrice"
-                placeholder="Price">
-
-            <button onclick="addProduct()">
-                Add Product
-            </button>
-
-        </div>
-
-        <div class="table-container">
-
-            <input
-                type="text"
-                id="search"
-                placeholder="Search Product..."
-                onkeyup="searchProduct()">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-
-                </thead>
-
-                <tbody id="productTable">
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
+        <nav class="sidebar-nav">
+    <a href="/frontend/dashboard.html" class="nav-item">🏠 Dashboard</a>
+    <a href="/frontend/products.html" class="nav-item">🛍️ Products</a>
+    <a href="/frontend/orders.html" class="nav-item">📦 Orders</a>
+    <a href="/frontend/customers.html" class="nav-item">👥 Customers</a>
+    <a href="/frontend/transactions.html" class="nav-item">💳 Transactions</a>
+    <a href="/frontend/profile.html" class="nav-item">👤 Profile</a>
+</nav>
+<div class="sidebar-bottom">
+    <a href="#" onclick="logout()" class="nav-item logout">🚪 Logout</a>
 </div>
-
+    </div>
+ 
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+ 
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <div>
+                <h1 class="page-title">Products Management</h1>
+                <p class="page-sub">Add, edit and track all your products</p>
+            </div>
+            <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+        </div>
+ 
+        <!-- ADD PRODUCT FORM -->
+        <div class="table-container" style="margin-bottom:20px;">
+            <h2 class="section-title" style="margin-bottom:16px;">Add New Product</h2>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:10px;">
+                <input type="text" id="productName" placeholder="Product Name">
+                <input type="number" id="productQty" placeholder="Quantity">
+                <input type="number" id="productPrice" placeholder="Price (₹)">
+                <input type="text" id="productCategory" placeholder="Category">
+                <input type="text" id="productCompany" placeholder="Company Name">
+                <input type="text" id="productLicense" placeholder="License Number">
+                <input type="date" id="productExpiry" placeholder="Expiry Date">
+                <input type="number" id="productLowStock" placeholder="Low Stock Threshold" value="10">
+                <select id="productLegalStatus">
+                    <option value="LICENSED">Licensed</option>
+                    <option value="RESTRICTED">Restricted</option>
+                    <option value="BANNED">Banned</option>
+                </select>
+            </div>
+            <button onclick="addProduct()"
+                style="margin-top:14px; padding:12px 28px; background:#2563eb; color:white; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;">
+                ➕ Add Product
+            </button>
+        </div>
+ 
+        <!-- SEARCH + TABLE -->
+        <div class="table-container">
+            <div class="section-header">
+                <h2 class="section-title">All Products</h2>
+                <input type="text" id="search" placeholder="🔍 Search product..."
+                    onkeyup="searchProduct()"
+                    style="padding:8px 14px; border:1px solid #e2e8f0; border-radius:8px; font-size:13px; width:220px;">
+            </div>
+ 
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Company</th>
+                            <th>License No.</th>
+                            <th>Expiry</th>
+                            <th>Legal Status</th>
+                            <th>Stock Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+ 
+    </div>
+</div>
+ 
 <script src="products.js"></script>
 <script src="common.js"></script>
 <script src="theme.js"></script>
-
-
-
+ 
 </body>
 </html>
+ 

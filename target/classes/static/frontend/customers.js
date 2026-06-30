@@ -1,80 +1,120 @@
-let customers =
-JSON.parse(
-localStorage.getItem("customers")
-) || [];
+const API = "http://localhost:8080/api/customers";
 
-function addCustomer()
-{
-    const name =
-    document.getElementById(
-    "customerName").value;
+// ===== AUTH CHECK =====
+if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "/frontend/index.html";
+}
 
-    const email =
-    document.getElementById(
-    "customerEmail").value;
+// ===== LOGOUT =====
+function logout() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("currentUser");
+    window.location.href = "/frontend/index.html";
+}
 
-    if(name === "" || email === "")
-    {
-        alert("Fill all fields");
+// ===== FETCH ALL CUSTOMERS =====
+async function fetchCustomers() {
+    try {
+        const res = await fetch(API);
+        const customers = await res.json();
+        displayCustomers(customers);
+    } catch (err) {
+        console.error("Error:", err);
+    }
+}
+
+// ===== DISPLAY CUSTOMERS =====
+function displayCustomers(customers) {
+    const table = document.getElementById("customerTable");
+    table.innerHTML = "";
+
+    if (customers.length === 0) {
+        table.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:20px;">No customers found</td></tr>`;
         return;
     }
 
-    customers.push({
-        name:name,
-        email:email
-    });
-
-    localStorage.setItem(
-        "customers",
-        JSON.stringify(customers)
-    );
-
-    displayCustomers();
-
-    document.getElementById(
-    "customerName").value = "";
-
-    document.getElementById(
-    "customerEmail").value = "";
-}
-
-function displayCustomers()
-{
-    const table =
-    document.getElementById(
-    "customerTable");
-
-    table.innerHTML = "";
-
-    customers.forEach((customer,index)=>{
-
+    customers.forEach(c => {
         table.innerHTML += `
         <tr>
-            <td>${index+1}</td>
-            <td>${customer.name}</td>
-            <td>${customer.email}</td>
-
+            <td>${c.id}</td>
+            <td><strong>${c.name}</strong></td>
+            <td>${c.email}</td>
+            <td>${c.phone || '-'}</td>
+            <td>${c.address || '-'}</td>
             <td>
-                <button onclick=
-                "deleteCustomer(${index})">
-                Delete
+                <button onclick="deleteCustomer(${c.id})"
+                    style="padding:6px 12px; background:#ef4444; color:white; border:none; border-radius:6px; cursor:pointer; font-size:12px;">
+                    🗑️ Delete
                 </button>
             </td>
-        </tr>
-        `;
+        </tr>`;
     });
 }
 
-function deleteCustomer(index)
-{
-    customers.splice(index,1);
+// ===== ADD CUSTOMER =====
+async function addCustomer() {
+    const name    = document.getElementById("customerName").value;
+    const email   = document.getElementById("customerEmail").value;
+    const phone   = document.getElementById("customerPhone").value;
+    const address = document.getElementById("customerAddress").value;
 
-    localStorage.setItem(
-        "customers",
-        JSON.stringify(customers)
-    );
+    if (!name || !email) {
+        alert("Name aur Email zaroori hain!");
+        return;
+    }
 
-    displayCustomers();
+    try {
+        const res = await fetch(API, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, email, phone, address })
+        });
+
+        if (res.ok) {
+            ["customerName","customerEmail","customerPhone","customerAddress"]
+                .forEach(id => document.getElementById(id).value = "");
+            fetchCustomers();
+        } else {
+            const data = await res.json();
+            alert(data.message || "Customer add nahi hua!");
+        }
+    } catch (err) {
+        console.error("Error:", err);
+    }
 }
 
-displayCustomers();
+// ===== DELETE CUSTOMER =====
+async function deleteCustomer(id) {
+    if (!confirm("Delete karna chahte ho?")) return;
+    try {
+        const res = await fetch(`${API}/${id}`, { method: "DELETE" });
+        if (res.ok) fetchCustomers();
+        else alert("Delete nahi hua!");
+    } catch (err) {
+        console.error("Error:", err);
+    }
+}
+
+// ===== SEARCH =====
+function searchCustomer() {
+    const query = document.getElementById("search").value.toLowerCase();
+    const rows = document.querySelectorAll("#customerTable tr");
+    rows.forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(query) ? "" : "none";
+    });
+}
+
+// ===== THEME =====
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("theme",
+        document.body.classList.contains("dark-mode") ? "dark" : "light"
+    );
+}
+
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+}
+
+// ===== LOAD =====
+fetchCustomers();

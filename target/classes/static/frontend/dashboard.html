@@ -10,7 +10,7 @@
 <body>
     
 <div class="app-layout">
-
+ 
     <!-- SIDEBAR -->
     <div class="sidebar">
         <div class="sidebar-brand">
@@ -21,33 +21,64 @@
             </div>
         </div>
         <nav class="sidebar-nav">
-            <a href="dashboard.html" class="nav-item active">🏠 Dashboard</a>
-            <a href="products.html" class="nav-item">🛍️ Products</a>
-            <a href="orders.html" class="nav-item">📦 Orders</a>
-            <a href="customers.html" class="nav-item">👥 Customers</a>
-            <a href="transactions.html" class="nav-item">💳 Transactions</a>
-            <a href="profile.html" class="nav-item">👤 Profile</a>
-        </nav>
-        <div class="sidebar-bottom">
-            <a href="#" onclick="logout()" class="nav-item logout">🚪 Logout</a>
-        </div>
+    <a href="/frontend/dashboard.html" class="nav-item">🏠 Dashboard</a>
+    <a href="/frontend/products.html" class="nav-item">🛍️ Products</a>
+    <a href="/frontend/orders.html" class="nav-item">📦 Orders</a>
+    <a href="/frontend/customers.html" class="nav-item">👥 Customers</a>
+    <a href="/frontend/transactions.html" class="nav-item">💳 Transactions</a>
+    <a href="/frontend/profile.html" class="nav-item">👤 Profile</a>
+</nav>
+<div class="sidebar-bottom">
+    <a href="#" onclick="logout()" class="nav-item logout">🚪 Logout</a>
+</div>
     </div>
-
+ 
     <!-- MAIN -->
     <div class="main-content">
-
+ 
         <!-- TOPBAR -->
         <div class="topbar">
             <div>
-                <h1 class="page-title">WELCOME TO DASHBOARD</h1>
-                <p class="page-sub" id="welcome"></p>
+                <h1 class="page-title">
+                    Welcome back, 
+                    <span id="welcomeName" style="color:#2563eb; font-weight:700;"></span> 
+                    👋
+                </h1>
+                <p class="page-sub">Here's what's happening with your inventory today.</p>
             </div>
-            <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span id="currentDate" style="font-size:13px; color:#64748b;"></span>
+                <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+            </div>
         </div>
-
+ 
+        <!-- HERO BANNER -->
+        <div class="hero-banner">
+            <div>
+                <h2>Smart Inventory System</h2>
+                <p>Manage your products, orders, and customers in one place.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <h3 id="heroProducts">0</h3>
+                    <span>Products</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <h3 id="heroOrders">0</h3>
+                    <span>Orders</span>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <h3 id="heroCustomers">0</h3>
+                    <span>Customers</span>
+                </div>
+            </div>
+        </div>
+ 
         <!-- STAT CARDS -->
         <div class="cards-grid">
-            <div class="dash-card blue-card">
+            <div class="dash-card blue-card" onclick="window.location.href='/frontend/products.html'" style="cursor:pointer;">
                 <div class="card-top">
                     <span class="card-icon">📦</span>
                     <span class="card-trend">+12%</span>
@@ -55,7 +86,7 @@
                 <p class="dash-card-value" id="totalProducts">0</p>
                 <p class="dash-card-label">Total Products</p>
             </div>
-            <div class="dash-card green-card">
+            <div class="dash-card green-card" onclick="window.location.href='/frontend/orders.html'" style="cursor:pointer;">
                 <div class="card-top">
                     <span class="card-icon">🛒</span>
                     <span class="card-trend">+8%</span>
@@ -63,7 +94,7 @@
                 <p class="dash-card-value" id="totalOrders">0</p>
                 <p class="dash-card-label">Total Orders</p>
             </div>
-            <div class="dash-card purple-card">
+            <div class="dash-card purple-card" onclick="window.location.href='/frontend/customers.html'" style="cursor:pointer;">
                 <div class="card-top">
                     <span class="card-icon">👥</span>
                     <span class="card-trend">+5%</span>
@@ -71,7 +102,7 @@
                 <p class="dash-card-value" id="totalCustomers">0</p>
                 <p class="dash-card-label">Total Customers</p>
             </div>
-            <div class="dash-card orange-card">
+            <div class="dash-card orange-card" onclick="window.location.href='/frontend/transactions.html'" style="cursor:pointer;">
                 <div class="card-top">
                     <span class="card-icon">💰</span>
                     <span class="card-trend">+20%</span>
@@ -80,32 +111,38 @@
                 <p class="dash-card-label">Total Revenue</p>
             </div>
         </div>
-
-        <!-- INVENTORY IMAGES SECTION -->
+ 
+        <!-- INVENTORY BANNER IMAGES -->
         <div class="inventory-banner">
-            <div class="banner-img" style="background-image:url('https://images.unsplash.com/photo-1553413077-190dd305871c?w=400&auto=format&fit=crop')">
+            <div class="banner-img" 
+                 onclick="window.location.href='/frontend/warehouse.html'"
+                 style="background-image:url('https://images.unsplash.com/photo-1553413077-190dd305871c?w=400&auto=format&fit=crop'); cursor:pointer;">
                 <div class="banner-overlay">
-                    <h3>Warehouse</h3>
+                    <h3>🏭 Warehouse</h3>
                     <p>Track stock levels</p>
                 </div>
             </div>
-            <div class="banner-img" style="background-image:url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&auto=format&fit=crop')">
+            <div class="banner-img" 
+                 onclick="window.location.href='/frontend/products.html'"
+                 style="background-image:url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&auto=format&fit=crop'); cursor:pointer;">
                 <div class="banner-overlay">
-                    <h3>Products</h3>
+                    <h3>🛍️ Products</h3>
                     <p>Manage all items</p>
                 </div>
             </div>
-            <div class="banner-img" style="background-image:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&auto=format&fit=crop')">
+            <div class="banner-img" 
+                 onclick="window.location.href='/frontend/analytics.html'"
+                 style="background-image:url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&auto=format&fit=crop'); cursor:pointer;">
                 <div class="banner-overlay">
-                    <h3>Analytics</h3>
+                    <h3>📊 Analytics</h3>
                     <p>View reports</p>
                 </div>
             </div>
         </div>
-
+ 
         <!-- BOTTOM SECTION -->
         <div class="bottom-grid">
-
+ 
             <!-- SYSTEM SUMMARY -->
             <div class="table-container">
                 <div class="section-header">
@@ -121,88 +158,68 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr onclick="window.location.href='/frontend/products.html'" style="cursor:pointer;">
                             <td>🛍️ Products</td>
                             <td><span class="badge active">Active</span></td>
                             <td><div class="health-bar"><div class="health-fill" style="width:90%"></div></div></td>
                         </tr>
-                        <tr>
+                        <tr onclick="window.location.href='/frontend/orders.html'" style="cursor:pointer;">
                             <td>📦 Orders</td>
                             <td><span class="badge active">Active</span></td>
                             <td><div class="health-bar"><div class="health-fill" style="width:75%"></div></div></td>
                         </tr>
-                        <tr>
+                        <tr onclick="window.location.href='/frontend/customers.html'" style="cursor:pointer;">
                             <td>👥 Customers</td>
                             <td><span class="badge active">Active</span></td>
                             <td><div class="health-bar"><div class="health-fill" style="width:85%"></div></div></td>
                         </tr>
+                        <tr onclick="window.location.href='/frontend/transactions.html'" style="cursor:pointer;">
+                            <td>💳 Transactions</td>
+                            <td><span class="badge active">Active</span></td>
+                            <td><div class="health-bar"><div class="health-fill" style="width:80%"></div></div></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-
+ 
             <!-- QUICK ACTIONS + ACTIVITY -->
             <div class="quick-actions">
                 <div class="section-header">
                     <h2 class="section-title">Quick Actions</h2>
                 </div>
                 <div class="action-grid">
-                    <a href="products.html" class="action-btn">
+                    <a href="/frontend/products.html" class="action-btn">
                         <span class="action-icon">➕</span>
                         <span>Add Product</span>
                     </a>
-                    <a href="orders.html" class="action-btn">
+                    <a href="/frontend/orders.html" class="action-btn">
                         <span class="action-icon">📋</span>
                         <span>New Order</span>
                     </a>
-                    <a href="customers.html" class="action-btn">
+                    <a href="/frontend/customers.html" class="action-btn">
                         <span class="action-icon">👤</span>
                         <span>Add Customer</span>
                     </a>
-                    <a href="transactions.html" class="action-btn">
+                    <a href="/frontend/transactions.html" class="action-btn">
                         <span class="action-icon">💳</span>
                         <span>Transactions</span>
                     </a>
                 </div>
-
+ 
                 <div class="activity-section">
                     <h3 class="activity-title">Recent Activity</h3>
-                    <div class="activity-item">
-                        <span class="activity-dot blue"></span>
-                        <div>
-                            <p class="activity-text">New product added</p>
-                            <p class="activity-time">2 mins ago</p>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <span class="activity-dot green"></span>
-                        <div>
-                            <p class="activity-text">Order #1023 placed</p>
-                            <p class="activity-time">15 mins ago</p>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <span class="activity-dot purple"></span>
-                        <div>
-                            <p class="activity-text">New customer registered</p>
-                            <p class="activity-time">1 hour ago</p>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <span class="activity-dot orange"></span>
-                        <div>
-                            <p class="activity-text">Revenue updated</p>
-                            <p class="activity-time">3 hours ago</p>
-                        </div>
-                    </div>
+                    <div id="recentActivity"></div>
                 </div>
             </div>
-
+ 
         </div>
     </div>
 </div>
-
+ 
 <script src="dashboard.js"></script>
+<script src="recent-activity.js"></script>
 <script src="common.js"></script>
 <script src="theme.js"></script>
 </body>
 </html>
+ 

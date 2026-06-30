@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMS - Warehouse</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+ 
+<div class="app-layout">
+ 
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">📦</div>
+            <div>
+                <h2>SIMS</h2>
+                <span>Smart Inventory</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+    <a href="/frontend/dashboard.html" class="nav-item">🏠 Dashboard</a>
+    <a href="/frontend/products.html" class="nav-item">🛍️ Products</a>
+    <a href="/frontend/orders.html" class="nav-item">📦 Orders</a>
+    <a href="/frontend/customers.html" class="nav-item">👥 Customers</a>
+    <a href="/frontend/transactions.html" class="nav-item">💳 Transactions</a>
+    <a href="/frontend/profile.html" class="nav-item">👤 Profile</a>
+</nav>
+<div class="sidebar-bottom">
+    <a href="#" onclick="logout()" class="nav-item logout">🚪 Logout</a>
+</div>
+    </div>
+ 
+    <!-- MAIN -->
+    <div class="main-content">
+ 
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <div>
+                <h1 class="page-title">🏭 Warehouse Overview</h1>
+                <p class="page-sub">Stock levels across all products</p>
+            </div>
+            <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+        </div>
+ 
+        <!-- BANNER IMAGE (decorative, no click) -->
+        <div class="banner-img" style="height:180px; margin-bottom:22px; background-image:url('https://images.unsplash.com/photo-1553413077-190dd305871c?w=900&auto=format&fit=crop'); cursor:default;">
+            <div class="banner-overlay">
+                <h3>Warehouse Stock Overview</h3>
+                <p>Real-time levels for every product in your inventory</p>
+            </div>
+        </div>
+ 
+        <!-- SUMMARY CARDS -->
+        <div class="cards-grid">
+            <div class="dash-card blue-card">
+                <div class="card-top"><span class="card-icon">📦</span></div>
+                <p class="dash-card-value" id="totalItems">0</p>
+                <p class="dash-card-label">Total Products</p>
+            </div>
+            <div class="dash-card green-card">
+                <div class="card-top"><span class="card-icon">✅</span></div>
+                <p class="dash-card-value" id="healthyStock">0</p>
+                <p class="dash-card-label">Healthy Stock</p>
+            </div>
+            <div class="dash-card orange-card">
+                <div class="card-top"><span class="card-icon">⚠️</span></div>
+                <p class="dash-card-value" id="lowStockCount">0</p>
+                <p class="dash-card-label">Low Stock Items</p>
+            </div>
+        </div>
+ 
+        <!-- STOCK TABLE -->
+        <div class="table-container">
+            <div class="section-header">
+                <h2 class="section-title">All Stock Levels</h2>
+            </div>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="warehouseTable"></tbody>
+                </table>
+            </div>
+        </div>
+ 
+    </div>
+</div>
+ 
+<script src="warehouse.js"></script>
+<script src="common.js"></script>
+<script src="theme.js"></script>
+ 
+</body>
+</html>
+ 
